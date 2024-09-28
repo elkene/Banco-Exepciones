@@ -199,7 +199,7 @@ public class Main {
                 Cliente cliente = banco.getCliente(i);
                 sb.append(cliente.toString()).append("\n");
             }
-
+    
             if (sb.length() > 0) {
                 JOptionPane.showMessageDialog(null, sb.toString());
             } else {

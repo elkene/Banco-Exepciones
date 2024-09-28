@@ -1,10 +1,11 @@
 package banco;
 
-import javax.swing.JOptionPane;
+import java.util.ArrayList;
+
 // Definición de la clase Cliente.
 public class Cliente {
     // Variable de instancia privada para almacenar una lista de cuentas. Se inicializa con un tamaño máximo de 10 cuentas.
-    private Cuenta[] listaDeCuentas = new Cuenta[10];
+    private ArrayList<Cuenta> listaDeCuentas = new ArrayList<>();
     
     // Variables de instancia privadas para almacenar la información personal del cliente.
     private String nombre;
@@ -16,20 +17,15 @@ public class Cliente {
 
     // Método público para agregar una cuenta a la lista de cuentas del cliente. 
     public void agregarCuenta(Cuenta cuenta) {
-        if (numeroCuentas < listaDeCuentas.length) {
-            listaDeCuentas[numeroCuentas] = cuenta;
-            numeroCuentas++;
-        } else {
-            // Muestra un mensaje de alerta si se ha alcanzado el límite de cuentas.
-            JOptionPane.showMessageDialog(null, "Límite de cuentas alcanzado.");
-        }
+        listaDeCuentas.add(cuenta);  // Agrega la cuenta a la lista sin necesidad de verificar el tamaño.
+
     }
 
     // Método público para obtener una cuenta por su número de cuenta (nodoCuenta).
     public Cuenta getCuenta(String nodoCuenta) {
-        for (int i = 0; i < numeroCuentas; i++) {
-            if (listaDeCuentas[i].getNodeCuenta().equals(nodoCuenta)) {
-                return listaDeCuentas[i];
+        for (Cuenta cuenta : listaDeCuentas) {
+            if (cuenta.getNodeCuenta().equals(nodoCuenta)) {
+                return cuenta;
             }
         }
         return null; // Retorna null si no se encuentra la cuenta.
@@ -37,8 +33,8 @@ public class Cliente {
 
     // Método público para obtener una cuenta por su índice en la lista.
     public Cuenta getCuenta(int index) {
-        if (index < numeroCuentas) {
-            return listaDeCuentas[index];
+        if (index >= 0 && index < listaDeCuentas.size()) {
+            return listaDeCuentas.get(index);
         }
         return null; // Retorna null si el índice está fuera del rango.
     }
@@ -82,8 +78,8 @@ public class Cliente {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Cliente: ").append(nombre).append(" | CURP: ").append(curp).append(" | Celular: ").append(celular).append("\n");
-        for (int i = 0; i < numeroCuentas; i++) {
-            sb.append(listaDeCuentas[i].toString()).append("\n");
+        for (Cuenta cuenta : listaDeCuentas) {
+            sb.append(cuenta.toString()).append("\n");
         }
         return sb.toString();
     }
