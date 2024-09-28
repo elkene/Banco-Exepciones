@@ -42,7 +42,7 @@ public class Main {
 
     private void menu(Banco banco) {
         int opcion = 0;
-        while (opcion != 6) {
+        while (opcion != 7) { // Cambia el número a 7 para incluir la opción de eliminar clientes
             try {
                 opcion = Integer.parseInt(JOptionPane.showInputDialog("MENU \n" +
                         "1. Crear Cliente \n" +
@@ -50,13 +50,15 @@ public class Main {
                         "3. Hacer Movimiento \n" +
                         "4. Mostrar Clientes \n" +
                         "5. Mostrar Historial de Movimientos \n" +
-                        "6. Salir \n" +
+                        "6. Eliminar Cliente \n" + // Nueva opción
+                        "7. Eliminar Cuenta \n" +   // Nueva opción
+                        "8. Salir \n" +
                         "Ingrese una opción:"));
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Por favor ingrese un número válido.");
                 continue;
             }
-
+    
             switch (opcion) {
                 case 1:
                     crearCliente(banco);
@@ -74,6 +76,12 @@ public class Main {
                     mostrarHistorialMovimientos(banco);
                     break;
                 case 6:
+                    eliminarCliente(banco); // Método para eliminar cliente
+                    break;
+                case 7:
+                    eliminarCuenta(banco); // Método para eliminar cuenta
+                    break;
+                case 8:
                     JOptionPane.showMessageDialog(null, "Saliendo del programa...");
                     break;
                 default:
@@ -208,5 +216,21 @@ public class Main {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al mostrar clientes: " + e.getMessage());
         }
+    }
+}
+private void eliminarCliente(Banco banco) {
+    String nombreCliente = JOptionPane.showInputDialog("Ingrese el nombre del cliente a eliminar:");
+    banco.eliminarCliente(nombreCliente);
+}
+
+private void eliminarCuenta(Banco banco) {
+    String nombreCliente = JOptionPane.showInputDialog("Ingrese el nombre del cliente:");
+    Cliente cliente = banco.getCliente(nombreCliente);
+
+    if (cliente != null) {
+        String nodoCuenta = JOptionPane.showInputDialog("Ingrese el número de cuenta a eliminar:");
+        cliente.eliminarCuenta(nodoCuenta);
+    } else {
+        JOptionPane.showMessageDialog(null, "Cliente no encontrado.");
     }
 }

@@ -32,4 +32,19 @@ class Banco {
     public int getNumeroClientes() {
         return listaDeClientes.size();  // El tamaño de la lista se obtiene directamente
     }
+    public void eliminarCliente(String nombre) {
+        Cliente clienteAEliminar = null;
+        for (Cliente cliente : listaDeClientes) {
+            if (cliente.getNombre().equals(nombre)) {
+                clienteAEliminar = cliente;
+                break; // Salir del bucle una vez que se encuentra el cliente
+            }
+        }
+        if (clienteAEliminar != null) {
+            listaDeClientes.remove(clienteAEliminar);
+            JOptionPane.showMessageDialog(null, "Cliente eliminado con éxito.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Cliente no encontrado.");
+        }
+    }
 }
